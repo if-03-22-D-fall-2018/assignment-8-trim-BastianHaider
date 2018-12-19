@@ -10,47 +10,44 @@
  * Test functions for trim.h
  * ----------------------------------------------------------
  */
-#include "trim.h"
-#include <string.h>
+ #include <string.h>
+ #include "trim.h"
 
-void trim(const char* source, char* trimmed_string)
-{
-  int firstLetterIndex;
-  int lastLetterIndex;
-  int counter = 0;
 
-  firstLetterIndex=getLastLetterIndex(source);
-  lastLetterIndex=getLastLetterIndex(source);
-
-  if (strlen(source) > 0 )
+  void trim(const char * source, char *trimmed_string)
   {
-  for (int i = firstLetterIndex; i <= lastLetterIndex; i++)
-  {
-    trimmed_string[counter] = source[i];
-    counter ++;
+    int count = 0;
+    int firstLetterIndex = 0;
+    int lastLetterIndex = strlen(source) -1;
+
+    getFirstLetterIndex(source, &firstLetterIndex);
+    getLastLetterIndex(source, &lastLetterIndex);
+
+    if (strlen(source) > 0 )
+    {
+      for (int i = firstLetterIndex; i <= lastLetterIndex; i++) {
+        trimmed_string[count] = source[i];
+        count ++;
+      }
+    }
+    else
+    {
+      strcpy(trimmed_string, "");
+    }
   }
-}
-else
-{
-  strcpy(trimmed_string, "");
-}
 
-}
-int getFirstLetterIndex(const char* source)
-{
-  int counter;
-  while(source[counter] == ' ')
+  void getFirstLetterIndex(const char* source, int *firstLetterIndex)
   {
-    counter++;
+    while (source[*firstLetterIndex] == ' ')
+    {
+      *firstLetterIndex = *firstLetterIndex+1;
+    }
   }
-  return counter;
-}
-int getLastLetterIndex(const char* source)
-{
-  int counter = strlen(source)-1;
-  while(source[counter] == ' ')
+
+  void getLastLetterIndex(const char* source, int *lastLetterIndex)
   {
-    counter--;
+    while (source[*lastLetterIndex] == ' ') {
+      *lastLetterIndex = *lastLetterIndex-1;
+    }
   }
-  return counter;
-}
+
